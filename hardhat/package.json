@@ -1,0 +1,11 @@
+{
+  "name": "hardhat",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.11.1",
+    "hardhat": "^2.22.0"
+  }
+}

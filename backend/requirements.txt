@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+pydantic
+opengradient==0.9.4
+python-dotenv
