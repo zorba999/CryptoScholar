@@ -84,10 +84,14 @@ async def call_llm(messages: list, max_tokens: int = 600) -> tuple[str, str]:
 async def generate_lesson(req: QuizRequest):
     style = random.choice(QUESTION_STYLES)
     seed = random.randint(1000, 9999)
+    correct_option = random.choice(["A", "B", "C"])
 
     prompt = f"""Explain the Web3 concept '{req.topic}' simply in 1 clear paragraph. Use a relatable analogy.
 
 IMPORTANT: After the explanation, you MUST write "🎯 **Quiz Question:**" followed by exactly 1 multiple-choice question with options **A)**, **B)**, and **C)**. 
+
+CRITICAL INSTRUCTION: The correct answer MUST be option **{correct_option})**. 
+Randomize the choices so the user doesn't know which is correct. Don't always pick B. 
 
 Question style instruction: {style}
 Variation seed (for uniqueness): {seed}
