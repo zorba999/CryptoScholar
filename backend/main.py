@@ -86,16 +86,20 @@ async def generate_lesson(req: QuizRequest):
     seed = random.randint(1000, 9999)
     correct_option = random.choice(["A", "B", "C"])
 
-    prompt = f"""Explain the Web3 concept '{req.topic}' simply in 1 clear paragraph. Use a relatable analogy.
+    print(f"DEBUG: Generating lesson for {req.topic}. Mandated correct option: {correct_option}")
+
+    prompt = f"""[SYSTEM: CRITICAL RANDOMIZATION RULE]
+The correct answer for the multiple-choice question below MUST be option **{correct_option})**. 
+Randomize your options A, B, and C so that the correct fact is at {correct_option}. Do NOT default to B.
+
+[USER REQUEST]
+Explain the Web3 concept '{req.topic}' simply in 1 clear paragraph. Use a relatable analogy.
 
 IMPORTANT: After the explanation, you MUST write "🎯 **Quiz Question:**" followed by exactly 1 multiple-choice question with options **A)**, **B)**, and **C)**. 
 
-CRITICAL INSTRUCTION: The correct answer MUST be option **{correct_option})**. 
-Randomize the choices so the user doesn't know which is correct. Don't always pick B. 
-
-Question style instruction: {style}
-Variation seed (for uniqueness): {seed}
-Do not repeat the same question you gave before. Make it fresh and different."""
+Question style: {style}
+Variation seed: {seed}
+Make it fresh and different from previous responses."""
 
     content, _ = await call_llm([{"role": "user", "content": prompt}], max_tokens=700)
     return {"lesson_data": content}
