@@ -123,8 +123,17 @@ Reply with ONLY the word 'CORRECT' or 'WRONG'. Nothing else."""
             import json
 
             w3 = Web3(Web3.HTTPProvider('https://sepolia.base.org'))
-            address = open('contract_address.txt').read().strip()
-            abi = json.loads(open('contract_abi.json').read())
+            
+            # Define paths relative to the current script
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            address_path = os.path.join(current_dir, "contract_address.txt")
+            abi_path = os.path.join(current_dir, "contract_abi.json")
+
+            with open(address_path, "r") as f:
+                address = f.read().strip()
+            with open(abi_path, "r") as f:
+                with open(abi_path, "r") as f_abi:
+                    abi = json.load(f_abi)
 
             contract = w3.eth.contract(address=address, abi=abi)
             account = w3.eth.account.from_key(private_key)
