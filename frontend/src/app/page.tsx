@@ -30,6 +30,8 @@ const QUICK_TOPICS = [
   "DAO Governance"
 ];
 
+const API_URL = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/$/, "");
+
 export default function Home() {
   const [topic, setTopic] = useState("");
   const [lesson, setLesson] = useState("");
@@ -40,7 +42,7 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
 
   const shareToTwitter = () => {
-    const text = `I just mastered '${topic}' and earned my Verifiable AI Diploma via CryptoScholar! 🎓🚀\n\nVerified by @OpenGradient TEE technology.\n\n#Web3Education #OpenGradient #Base`;
+    const text = `I just mastered '${topic}' and earned my Verifiable AI Diploma via CryptoScholar! \n\nVerified by @OpenGradient TEE technology.\n\n#Web3Education #OpenGradient #Base`;
     const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
   };
@@ -57,7 +59,7 @@ export default function Home() {
     setLesson("");
     setResult(null);
     try {
-      const res = await fetch("http://localhost:8000/generate_lesson", {
+      const res = await fetch(`${API_URL}/generate_lesson`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic }),
@@ -81,7 +83,7 @@ export default function Home() {
     setLoadingVerify(true);
     setResult(null);
     try {
-      const res = await fetch("http://localhost:8000/verify_answer", {
+      const res = await fetch(`${API_URL}/verify_answer`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

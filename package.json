@@ -1,0 +1,12 @@
+{
+  "name": "cryptoscholar-app",
+  "version": "1.0.0",
+  "scripts": {
+    "backend": "cd backend && .\\venv\\Scripts\\python.exe main.py",
+    "frontend": "cd frontend && npm run dev",
+    "dev": "npx concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
